@@ -1,0 +1,29 @@
+{
+  "name": "iitm-wa-bot-logic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.ts"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PiyushDuggal-source/iitm-wa-bot-logic.git"
+  },
+  "author": "Piyush Duggal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PiyushDuggal-source/iitm-wa-bot-logic/issues"
+  },
+  "homepage": "https://github.com/PiyushDuggal-source/iitm-wa-bot-logic#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17"
+  }
+}
