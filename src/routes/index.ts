@@ -1,10 +1,16 @@
-import e from 'express'
+import e from "express";
+import { Request, Response } from "express";
+import { Req_type } from "../types";
 
-const router = e.Router()
+const router = e.Router();
 
-router.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+router.post("/sendMessage", (req: Request<{}, {}, Req_type>, res: Response) => {
+  console.log(req.body);
+  res.sendStatus(200);
+});
 
+router.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
-export default router
+export default router;
