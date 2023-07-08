@@ -9,7 +9,7 @@ router.post("/sendMessage", (req: Request<{}, {}, Req_type>, res: Response) => {
   res.sendStatus(200);
 });
 
-router.get("/", (req, res) => {
+router.get("/", (_req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
