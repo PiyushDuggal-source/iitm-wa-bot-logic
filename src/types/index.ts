@@ -1,5 +1,8 @@
+import { Roles } from "../models/models";
+
 export type Req_type = {
-  messageBody: string;
+  name: string;
+  cmd: string;
   chatId: string;
 };
 
@@ -14,5 +17,14 @@ export type ReturnType =
 
 export type Res_Type = {
   message: string;
+  chatId: string;
   type: ReturnType;
+  emoji?: any;
+};
+
+export type UserType = {
+  name: string;
+  chatId: string;
+  role: Roles;
+  newUser?: boolean;
 };
