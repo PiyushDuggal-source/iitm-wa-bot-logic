@@ -12,12 +12,12 @@ export type User = {
 };
 
 const users = new Schema<User>({
-  name: { type: String },
+  name: { type: String, default: "Student"},
   recipitantId: { type: String },
   notifyForEvents: { type: Boolean, default: true },
-  banCount: { type: Number },
+  banCount: { type: Number, default: 0},
   roles: { type: String, default: "STUDENT" },
-  numberOfCmds: { type: Number },
+  numberOfCmds: { type: Number, default: 0 },
 });
 
 export const UserModel = model("Users", users);
