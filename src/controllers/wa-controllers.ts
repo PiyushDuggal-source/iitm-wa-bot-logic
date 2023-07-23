@@ -13,6 +13,11 @@ export const processMessageSend = async (messageObject: Req_type) => {
   });
 
   const commandRes = await createCmdResponse(cmd);
+  if (commandRes === "No Notes Found") {
+    return {
+      status: "No such command",
+    };
+  }
   if (userInfo.newUser) {
     console.log("New user");
     const welcomeMessage = `Hi ${name}, Welcome to the WhatsApp Bot! This is your first time using the bot!\nGood Luck!!`;
@@ -20,15 +25,18 @@ export const processMessageSend = async (messageObject: Req_type) => {
 
   const finalMsg = `\n${commandRes}\n`;
 
-  await sendMessageToUser({
-    message: finalMsg,
-    chatId,
-    type: "SUCCESS",
-    emoji: "✅",
-  });
+  // await sendMessageToUser({
+  //   message: finalMsg,
+  //   chatId,
+  //   type: "SUCCESS",
+  //   emoji: "✅",
+  // });
 
   // TODO: Add logic to check
   console.log("Leaving processMessageSend\n");
 
-  return "SUCCESS";
+  return {
+    commandRes,
+    userInfo,
+  };
 };
