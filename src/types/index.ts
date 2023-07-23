@@ -2,7 +2,7 @@ import { Roles } from "../models/models";
 
 export type Req_type = {
   name: string;
-  cmd: string;
+  messageBody: string;
   chatId: string;
 };
 
@@ -28,3 +28,11 @@ export type UserType = {
   role: Roles;
   newUser?: boolean;
 };
+
+export type Notes = {
+  name: string;
+  content: {
+    name: string;
+    link: string;
+  }[];
+}[];
