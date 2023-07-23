@@ -24,6 +24,7 @@ export const getUserData = async ({
       name: newUser.name,
       chatId: newUser.recipitantId,
       newUser: true,
+      role: newUser.role,
     };
   }
 
@@ -32,5 +33,6 @@ export const getUserData = async ({
     name: user.name,
     chatId: user.recipitantId,
     newUser: false,
+    role: user.role,
   };
 };

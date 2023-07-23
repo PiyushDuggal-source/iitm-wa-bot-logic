@@ -4,7 +4,7 @@ export type Roles = "ADMIN" | "STUDENT" | "OWNER";
 
 export type User = {
   name: string;
-  roles: Roles;
+  role: Roles;
   recipitantId: string;
   banCount: number;
   notifyForEvents: Boolean;
@@ -16,8 +16,18 @@ const users = new Schema<User>({
   recipitantId: { type: String },
   notifyForEvents: { type: Boolean, default: true },
   banCount: { type: Number, default: 0},
-  roles: { type: String, default: "STUDENT" },
+  role: { type: String, default: "STUDENT" },
   numberOfCmds: { type: Number, default: 0 },
 });
 
+const notes = new Schema({
+  name: { type: String },
+  content: [
+    {
+      name: { type: String },
+      link: { type: String },
+    },
+  ],
+});
+export const NotesModel = model("Notes", notes);
 export const UserModel = model("Users", users);
