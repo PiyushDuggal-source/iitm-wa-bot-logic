@@ -28,6 +28,7 @@ export const getUserData = async ({
     };
   }
 
+  console.log("UserName: ", user.name);
   console.log("Leaving getUserData\n");
   return {
     name: user.name,
