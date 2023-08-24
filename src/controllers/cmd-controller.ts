@@ -4,7 +4,6 @@ import { NOTES_CMD } from "../cmds/commands";
 export const createCmdResponse = async (cmd: string) => {
   console.log(`\nEntering createCmdResponse with cmd: ${cmd}`);
 
-  cmd = cmd.toLowerCase().slice(1);
   // check if cmd word length is 2
   if (cmd.split(" ").length === 2) {
     let [command, filterWord] = cmd.split(" ");
@@ -14,13 +13,13 @@ export const createCmdResponse = async (cmd: string) => {
       case NOTES_CMD.filter((cmd) => cmd === command)[0]:
         return createNotesRes(filterWord);
     }
-  }
-
-  switch (cmd) {
-    case NOTES_CMD.filter((command) => command === cmd)[0]:
-      return createNotesRes();
-    default:
-      break;
+  } else {
+    switch (cmd) {
+      case NOTES_CMD.filter((command) => command === cmd)[0]:
+        return createNotesRes();
+      default:
+        return "No such command";
+    }
   }
   console.log("Leaving createCmdResponse\n");
 };
