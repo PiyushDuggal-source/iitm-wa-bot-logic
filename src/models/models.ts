@@ -12,10 +12,10 @@ export type User = {
 };
 
 const users = new Schema<User>({
-  name: { type: String, default: "Student"},
+  name: { type: String, default: "Student" },
   recipitantId: { type: String },
   notifyForEvents: { type: Boolean, default: true },
-  banCount: { type: Number, default: 0},
+  banCount: { type: Number, default: 0 },
   role: { type: String, default: "STUDENT" },
   numberOfCmds: { type: Number, default: 0 },
 });
