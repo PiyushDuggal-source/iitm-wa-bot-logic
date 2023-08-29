@@ -3,6 +3,9 @@ import { Request, Response } from "express";
 import { Req_type } from "../types";
 import { processMessageSend } from "../controllers/wa-controllers";
 import { createCmdResponse } from "../controllers/cmd-controller";
+import { sendMessageToBot } from "../services/whatsApp";
+import { NO_CMD_FOUND, NO_NOTES_FOUND } from "../replies";
+import { random } from "../axios/common";
 
 const router = e.Router();
 
@@ -12,17 +15,21 @@ router.post(
     const { cmd } = req.body;
 
     const commandRes = await createCmdResponse(cmd);
-    if (commandRes === "No Notes Found" || commandRes === "No such command") {
-      return {
-        status: "No such command",
-      };
-    }
 
-    if (commandRes === "No such command") {
-      res.json({ status: "No such command" });
+    if (commandRes === "No Notes Found") {
+      sendMessageToBot({
+        message: NO_NOTES_FOUND[random(NO_NOTES_FOUND.length)],
+      });
+      res.json({ status: "No notes found" });
+    } else if (commandRes === "No such command") {
+      sendMessageToBot({
+        message: NO_CMD_FOUND[random(NO_NOTES_FOUND.length)],
+      });
+      res.json({ status: "No cmd found" });
     } else {
       res.json({ status: "success" });
     }
+
     await processMessageSend(req.body, commandRes as string);
   },
 );

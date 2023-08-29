@@ -36,3 +36,12 @@ export const replies: {
   ],
   NO_CALENDAR: "Unfortunately, we don't have any calendar for today",
 };
+
+export const NO_CMD_FOUND = [
+  "Hey fella, this commands does not exists",
+  "Hey mate, there is no such command",
+];
+
+export const NO_NOTES_FOUND = [
+  "Hey fella, there are no respective notes, if you think we should add them, please mention @Piyush Duggal in this message.",
+];
