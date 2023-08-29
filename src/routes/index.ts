@@ -4,8 +4,8 @@ import { Req_type } from "../types";
 import { processMessageSend } from "../controllers/wa-controllers";
 import { createCmdResponse } from "../controllers/cmd-controller";
 import { sendMessageToBot } from "../services/whatsApp";
-import { NO_CMD_FOUND, NO_NOTES_FOUND } from "../replies";
-import { random } from "../axios/common";
+import { NO_CMD_FOUND, NO_NOTES_FOUND, REACT_EMOGIES } from "../replies";
+import { random } from "../common";
 
 const router = e.Router();
 
@@ -27,10 +27,12 @@ router.post(
       });
       res.json({ status: "No cmd found" });
     } else {
-      res.json({ status: "success" });
+      res.json({
+        status: "success",
+        emoji: REACT_EMOGIES[random(REACT_EMOGIES.length)],
+      });
+      await processMessageSend(req.body, commandRes as string);
     }
-
-    await processMessageSend(req.body, commandRes as string);
   },
 );
 
