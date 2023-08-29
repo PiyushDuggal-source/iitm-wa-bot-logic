@@ -50,8 +50,8 @@ export const NOTES_CMD_Show = [
   "cheat <filter>",
 ];
 export const COMMANDS_CMDS = [
-  `${process.env.BOT_PREFIX}allcmds`,
-  `${process.env.BOT_PREFIX}allcmd`,
+  `allcmds`,
+  `allcmd`,
 ];
 export const HELP_CMDS = ["help", "hlp"];
 export const SOURCE = ["source"];
@@ -65,17 +65,6 @@ export const HIGHER_PREV_CMDS_2 = [
   "add",
   "kick",
   "ban",
-  "mute",
-  "unmute",
-];
-export const HIGHER_PREV_CMDS_3 = [
-  "remove",
-  "add",
-  "kick",
-  "ban",
-  "mute",
-  "unmute",
-  "everyone",
 ];
 
 export const User_AllCommands: string[][] = [
@@ -89,5 +78,4 @@ export const User_AllCommands: string[][] = [
   SOURCE,
 ];
 
-export const ADMIN_CMDS: string[][] = [HIGHER_PREV_CMDS_2];
-export const OWNER_ADMIN_CMDS: string[][] = [HIGHER_PREV_CMDS_3];
+export const ADMIN_CMDS: string[] = HIGHER_PREV_CMDS_2;

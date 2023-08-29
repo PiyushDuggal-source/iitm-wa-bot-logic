@@ -1,4 +1,7 @@
+import { ADMIN_CMDS } from "../cmds/commands";
+import { random } from "../common";
 import { NotesModel } from "../models/models";
+import { BOT_ONLINE_RES } from "../replies";
 import { Notes } from "../types";
 
 const notesFormatter = (notes: Notes) => {
@@ -29,4 +32,30 @@ export const createNotesRes = async (filteredWord?: string) => {
   const notes: Notes = await NotesModel.find({});
   console.log("Leaving createNotesRes\n");
   return notesFormatter(notes);
+};
+
+type CmdType = "STUDENT" | "ADMIN";
+
+/**
+ * Determines the type of command based on the given input.
+ *
+ * @param {string} cmd - The command to be checked.
+ * @return {CmdType} The type of command: "ADMIN" or "STUDENT".
+ */
+export const checkCmdType = (cmd: string): CmdType => {
+  console.log("\nEntering checkCmdType");
+  if (cmd.split(" ").length !== 2) {
+    console.log("Leaving checkCmdType\n");
+    return "STUDENT";
+  }
+
+  const cmdType = cmd.split(" ")[0];
+  const isAdminCmd = ADMIN_CMDS.includes(cmdType);
+
+  console.log("Leaving checkCmdType\n");
+  return isAdminCmd ? "ADMIN" : "STUDENT";
+};
+
+export const createBotOnlineRes = () => {
+  return BOT_ONLINE_RES[random(BOT_ONLINE_RES.length)];
 };

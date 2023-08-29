@@ -60,3 +60,11 @@ export const REACT_EMOGIES = [
   "😎",
   "🗿",
 ];
+
+export const BOT_ONLINE_RES = [
+  "I'm here to help!",
+  "How can I help you today?",
+  "I'm online",
+  "I'm online. How can I help you?",
+  "I'm at your service.",
+];

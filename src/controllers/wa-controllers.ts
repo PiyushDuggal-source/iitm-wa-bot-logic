@@ -1,28 +1,34 @@
 import { sendMessageToBot, sendMessageToUser } from "../services/whatsApp";
-import { Req_type } from "../types";
-import { getUserData } from "./user-controllers";
+import { Req_type, UserType } from "../types";
 
+/**
+ * Processes a message send by a user.
+ *
+ * @param {Req_type} messageObject - The message object containing the message details.
+ * @param {string} commandRes - The command response string.
+ * @param {UserType} userInfo - The user info object.
+ */
 export const processMessageSend = async (
   messageObject: Req_type,
   commandRes: string,
+  userInfo: UserType,
 ) => {
   console.log("\nEntering processMessageSend");
   const { name, chatId } = messageObject;
-  const userInfo = await getUserData({
-    name,
-    chatId,
-  });
 
+  let welcomeMessage = "";
   if (userInfo.newUser) {
     console.log("New user");
-    const welcomeMessage = `Hi ${name}, Welcome to the WhatsApp Bot! This is your first time using the bot!\nGood Luck!!`;
+    welcomeMessage = `Hi ${name}, Welcome to the WhatsApp Bot! This is your first time using the bot!\nGood Luck!! `;
   }
 
-  const finalMsg = `${commandRes}\n`;
+  const finalMsg = `${process.env.BOT_NAME}: ${welcomeMessage}${
+    welcomeMessage !== "" ? "\n" : ""
+  }${commandRes}`;
   console.log(userInfo);
 
   if (userInfo.role === "OWNER") {
-    return sendMessageToBot({
+    return await sendMessageToBot({
       message: finalMsg,
     });
   }
