@@ -38,7 +38,7 @@ export const replies: {
 };
 
 export const NO_CMD_FOUND = [
-  "Hey fella, this commands does not exists",
+  "Hey fella, this command does not exists",
   "Hey mate, there is no such command",
 ];
 
