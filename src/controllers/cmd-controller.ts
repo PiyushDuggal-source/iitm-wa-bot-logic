@@ -6,7 +6,7 @@ import {
 } from "../actions/cmd-actions";
 import { BOT_CHECK_MESSAGES, NOTES_CMD } from "../cmds/commands";
 import { sendMessageToBot } from "../services/whatsApp";
-import { NO_CMD_FOUND, NO_NOTES_FOUND, REACT_EMOGIES } from "../replies";
+import { NO_NOTES_FOUND, REACT_EMOGIES } from "../replies";
 import { random } from "../common";
 import { processMessageSend } from "./wa-controllers";
 import { getUserData } from "./user-controllers";
@@ -80,10 +80,7 @@ export const processingRequest = async (
     });
     res.json({ status: "No notes found" });
   } else if (commandRes === "No such command") {
-    sendMessageToBot({
-      message: NO_CMD_FOUND[random(NO_NOTES_FOUND.length)],
-    });
-    res.json({ status: "No cmd found" });
+    res.json({ status: commandRes });
   } else {
     res.json({
       status: "success",
