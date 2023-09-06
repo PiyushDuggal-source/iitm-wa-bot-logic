@@ -57,8 +57,7 @@ export const HELP_CMDS = ["help", "hlp"];
 export const SOURCE = ["source"];
 export const IMP_DATES = ["impdates", "importantdates", "dates"];
 export const ELIGIBILITY = ["eligibility", "eligible"];
-export const PLAYLIST_CMD = ["playlist"];
-export const PLAYLIST_CMD_ALIAS = ["playlist", "plst"];
+export const PLAYLIST_CMD = ["playlist", "plst"];
 export const BOT_CHECK_MESSAGES = ["check", "up", "bot", "online"];
 export const HIGHER_PREV_CMDS_2 = [
   "remove",

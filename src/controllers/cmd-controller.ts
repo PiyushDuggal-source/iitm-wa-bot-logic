@@ -3,8 +3,9 @@ import {
   checkCmdType,
   createBotOnlineRes,
   createNotesRes,
+  createPlaylistRes,
 } from "../actions/cmd-actions";
-import { BOT_CHECK_MESSAGES, NOTES_CMD } from "../cmds/commands";
+import { BOT_CHECK_MESSAGES, NOTES_CMD, PLAYLIST_CMD } from "../cmds/commands";
 import { sendMessageToBot } from "../services/whatsApp";
 import { NO_NOTES_FOUND, REACT_EMOGIES } from "../replies";
 import { random } from "../common";
@@ -23,19 +24,31 @@ export const createCmdResponse = async (cmd: string) => {
       // if its notes cmd
       case NOTES_CMD.filter((cmd) => cmd === command)[0]:
         return createNotesRes(filterWord);
+
+      // If its Playlist cmd
+      case PLAYLIST_CMD.filter((cmd) => cmd === command)[0]:
+        return createPlaylistRes(filterWord);
+
+      default:
+        console.log("Leaving createCmdResponse\n");
+        return "No such command";
     }
   } else {
     switch (cmd) {
       case NOTES_CMD.filter((command) => command === cmd)[0]:
         return createNotesRes();
 
+      // if its bot check messages
       case BOT_CHECK_MESSAGES.filter((command) => command === cmd)[0]:
         return createBotOnlineRes();
+
+      case PLAYLIST_CMD.filter((command) => command === cmd)[0]:
+        return createPlaylistRes();
       default:
+        console.log("Leaving createCmdResponse\n");
         return "No such command";
     }
   }
-  console.log("Leaving createCmdResponse\n");
 };
 
 export const processingRequest = async (

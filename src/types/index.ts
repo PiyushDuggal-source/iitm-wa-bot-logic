@@ -34,3 +34,8 @@ export type Notes = {
     link: string;
   }[];
 }[];
+
+export type Playlist = {
+  name: string;
+  link: string;
+}[];
