@@ -110,7 +110,7 @@ export const createAllCmdResponse = () => {
     REACT_EMOGIES[random(REACT_EMOGIES.length)]
   }\nThis is *${
     process.env.BOT_NAME
-  }*$, your study assistant!\nThese are the commands you can use:\n`;
+  }*, your study assistant!\nThese are the commands you can use:\n`;
   Object.entries(ALLCMDS).forEach(([command, cmdList]) => {
     message += `\nfor *${command}*:\n`;
     cmdList.forEach((cmd) => {
