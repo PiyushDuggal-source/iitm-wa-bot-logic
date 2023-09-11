@@ -63,7 +63,6 @@ export const REACT_EMOGIES = [
   "🎉",
   "📚",
 ];
-
 export const BOT_ONLINE_RES = [
   "I'm here to help!",
   "How can I help you today?",
@@ -76,4 +75,12 @@ export const GROUP_JOIN_MESSAGES = [
   "👋 Hey there, future genius! ELIZA is here with the magic touch. Looking for notes? Use our 'notes' commands directly in this group chat. Send '*!notes*' to see all available notes or '*!Notes <subject_name>*' to grab a specific one. Let the learning adventure begin! 🌟",
   "📖 Get ready to level up your academics! ELIZA is your secret weapon. Type '*!notes*' right here in the group to find all notes, or '*!Notes <subject_name>*' to summon a specific note. Let's embark on this knowledge quest together, in the group! 🌠",
   "🎓 Welcome to the ELIZA revolution! 🤖 Unlock academic awesomeness with our 'notes' commands, right in this group chat. Just send '*!notes*' to explore notes or '*!Notes <subject_name>*' to access a particular one. Together, we'll make studying epic, right here in the group! 🚀📚",
+];
+
+export const GREETINGS = [
+  "What's up?",
+  "How's it going?",
+  "How are you?",
+  "How are you doing?",
+  "How's life?",
 ];

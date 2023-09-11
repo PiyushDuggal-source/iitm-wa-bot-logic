@@ -1,7 +1,13 @@
-import { ADMIN_CMDS } from "../cmds/commands";
+import {
+  ADMIN_CMDS,
+  BOT_CHECK_MESSAGES,
+  COMMANDS,
+  NOTES_CMD,
+  PLAYLIST_CMD,
+} from "../cmds/commands";
 import { random } from "../common";
 import { NotesModel, PlaylistModel } from "../models/models";
-import { BOT_ONLINE_RES } from "../replies";
+import { BOT_ONLINE_RES, GREETINGS, REACT_EMOGIES } from "../replies";
 import { Notes, Playlist } from "../types";
 
 const notesFormatter = (notes: Notes) => {
@@ -89,4 +95,32 @@ export const checkCmdType = (cmd: string): CmdType => {
 
 export const createBotOnlineRes = () => {
   return BOT_ONLINE_RES[random(BOT_ONLINE_RES.length)];
+};
+
+const ALLCMDS = {
+  "allcmds 🤖": COMMANDS,
+  "Botcheck ✅": BOT_CHECK_MESSAGES,
+  "Notes 📝": NOTES_CMD,
+  "playlist 📹": PLAYLIST_CMD,
+};
+
+export const createAllCmdResponse = () => {
+  console.log("\nEntering createAllCmdResponse");
+  let message = `Hey ${GREETINGS[random(GREETINGS.length)]} ${
+    REACT_EMOGIES[random(REACT_EMOGIES.length)]
+  }\nThis is *${
+    process.env.BOT_NAME
+  }*$, your study assistant!\nThese are the commands you can use:\n`;
+  Object.entries(ALLCMDS).forEach(([command, cmdList]) => {
+    message += `\nfor *${command}*:\n`;
+    cmdList.forEach((cmd) => {
+      message += `-   !${cmd}\n`;
+    });
+  });
+
+  message += `\nIf you have any queries or suggestions, please contact @Piyush Duggal.\nThanks! Happy learning! ${
+    REACT_EMOGIES[random(REACT_EMOGIES.length)]
+  }`;
+  console.log("Leaving createAllCmdResponse\n");
+  return message;
 };

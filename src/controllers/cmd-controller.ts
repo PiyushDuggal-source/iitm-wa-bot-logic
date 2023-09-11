@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
 import {
   checkCmdType,
+  createAllCmdResponse,
   createBotOnlineRes,
   createNotesRes,
   createPlaylistRes,
 } from "../actions/cmd-actions";
-import { BOT_CHECK_MESSAGES, NOTES_CMD, PLAYLIST_CMD } from "../cmds/commands";
+import {
+  BOT_CHECK_MESSAGES,
+  COMMANDS,
+  NOTES_CMD,
+  PLAYLIST_CMD,
+} from "../cmds/commands";
 import { sendMessageToBot } from "../services/whatsApp";
 import { NO_NOTES_FOUND, REACT_EMOGIES } from "../replies";
 import { random } from "../common";
@@ -45,6 +51,9 @@ export const createCmdResponse = async (cmd: string) => {
 
       case PLAYLIST_CMD.filter((command) => command === cmd)[0]:
         return createPlaylistRes();
+
+      case COMMANDS.filter((command) => command === cmd)[0]:
+        return createAllCmdResponse();
       default:
         console.log("Leaving createCmdResponse\n");
         return "No such command";

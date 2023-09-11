@@ -31,7 +31,7 @@ export const allCommandLvls = {
   everyone: 3,
 };
 
-export const COMMANDS = ["allcmd"];
+export const COMMANDS = ["allcmd", "allcmds", "allcommands"];
 export const CALENDAR_COMMANDS = ["classes", "calendar", "clss"];
 export const CALENDAR_TYPOS = [
   "calender",
