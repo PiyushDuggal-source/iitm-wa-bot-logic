@@ -18,6 +18,7 @@ export const createCmdResponse = async (cmd: string) => {
   // check if cmd has a parameter
   if (cmd.split(" ").length === 2) {
     let [command, filterWord] = cmd.split(" ");
+    command = command.trim();
 
     // check if cmd is "filter"
     switch (command) {

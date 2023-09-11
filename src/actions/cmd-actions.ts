@@ -18,7 +18,9 @@ const notesFormatter = (notes: Notes) => {
 const playlistFormatter = (playlist: Playlist) => {
   let content = "\n-----------*Content*------------\n";
   playlist.forEach((note) => {
-    content += `_NAME_ : *${note.name.split("|")[0].trim()}*\n_LINK_ : ${note.link}\n`;
+    content += `_Name_ : *${note.name.split("|")[0].trim()}*\n_Link_ : ${
+      note.link
+    }\n`;
   });
   return content;
 };
