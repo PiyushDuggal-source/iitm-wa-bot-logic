@@ -49,22 +49,14 @@ export const NOTES_CMD_Show = [
   "note <filter>",
   "cheat <filter>",
 ];
-export const COMMANDS_CMDS = [
-  `allcmds`,
-  `allcmd`,
-];
+export const COMMANDS_CMDS = [`allcmds`, `allcmd`];
 export const HELP_CMDS = ["help", "hlp"];
-export const SOURCE = ["source"];
+export const SOURCE = ["source", "src"];
 export const IMP_DATES = ["impdates", "importantdates", "dates"];
 export const ELIGIBILITY = ["eligibility", "eligible"];
 export const PLAYLIST_CMD = ["playlist", "plst"];
 export const BOT_CHECK_MESSAGES = ["check", "up", "bot", "online"];
-export const HIGHER_PREV_CMDS_2 = [
-  "remove",
-  "add",
-  "kick",
-  "ban",
-];
+export const HIGHER_PREV_CMDS_2 = ["remove", "add", "kick", "ban"];
 
 export const User_AllCommands: string[][] = [
   CALENDAR_COMMANDS,

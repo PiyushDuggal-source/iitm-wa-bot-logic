@@ -4,6 +4,7 @@ import {
   COMMANDS,
   NOTES_CMD,
   PLAYLIST_CMD,
+  SOURCE,
 } from "../cmds/commands";
 import { random } from "../common";
 import { NotesModel, PlaylistModel } from "../models/models";
@@ -98,10 +99,11 @@ export const createBotOnlineRes = () => {
 };
 
 const ALLCMDS = {
-  "allcmds 🤖": COMMANDS,
+  "Allcmds 🤖": COMMANDS,
   "Botcheck ✅": BOT_CHECK_MESSAGES,
   "Notes 📝": NOTES_CMD,
-  "playlist 📹": PLAYLIST_CMD,
+  "Playlist 📹": PLAYLIST_CMD,
+  "Source 👨‍💻": SOURCE,
 };
 
 export const createAllCmdResponse = () => {
@@ -122,5 +124,22 @@ export const createAllCmdResponse = () => {
     REACT_EMOGIES[random(REACT_EMOGIES.length)]
   }`;
   console.log("Leaving createAllCmdResponse\n");
+  return message;
+};
+
+export const createSourceCmdRes = () => {
+  const message = `Hey, Checkout how I *${process.env.BOT_NAME}* created!!${
+    REACT_EMOGIES[random(REACT_EMOGIES.length)]
+  }\n
+Check the Source Code from here:\n
+https://github.com/PiyushDuggal-source/IITM-WA-BOT\n
+\n
+Give it a *star*, if you like it!\n
+\n
+Got any Suggestion/Issue? Report here:\n
+https://github.com/PiyushDuggal-source/IITM-WA-BOT/issues\n
+
+Want to contribute?😎 ping @Piyush Duggal!`;
+
   return message;
 };

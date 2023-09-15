@@ -5,12 +5,14 @@ import {
   createBotOnlineRes,
   createNotesRes,
   createPlaylistRes,
+  createSourceCmdRes,
 } from "../actions/cmd-actions";
 import {
   BOT_CHECK_MESSAGES,
   COMMANDS,
   NOTES_CMD,
   PLAYLIST_CMD,
+  SOURCE,
 } from "../cmds/commands";
 import { sendMessageToBot } from "../services/whatsApp";
 import { NO_NOTES_FOUND, REACT_EMOGIES } from "../replies";
@@ -54,6 +56,7 @@ export const createCmdResponse = async (cmd: string) => {
 
       case COMMANDS.filter((command) => command === cmd)[0]:
         return createAllCmdResponse();
+
       default:
         console.log("Leaving createCmdResponse\n");
         return "No such command";
@@ -71,6 +74,7 @@ export const processingRequest = async (
 
   const userInfo = await getUserData({ name, chatId });
 
+  // everyone cmd controller
   if (cmd === "everyone" && userInfo.role === "OWNER") {
     // owner controller
     sendMessageToBot({
@@ -83,6 +87,18 @@ export const processingRequest = async (
     return;
   }
   const cmdType = checkCmdType(cmd);
+
+  // source cmd controller
+  if (SOURCE.includes(cmd)) {
+    sendMessageToBot({
+      message: createSourceCmdRes(),
+    });
+    res.json({
+      status: "success",
+      emoji: REACT_EMOGIES[random(REACT_EMOGIES.length)],
+    });
+    return;
+  }
 
   if (cmdType === "ADMIN" && ["ADMIN", "OWNER"].includes(userInfo.role)) {
     // admin controller
