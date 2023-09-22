@@ -14,7 +14,7 @@ export const processMessageSend = async (
   userInfo: UserType,
 ) => {
   console.log("\nEntering processMessageSend");
-  const { name, chatId } = messageObject;
+  const { name, chatId, groupId } = messageObject;
 
   let welcomeMessage = "";
   if (userInfo.newUser) {
@@ -30,6 +30,7 @@ export const processMessageSend = async (
   if (userInfo.role === "OWNER") {
     return await sendMessageToBot({
       message: finalMsg,
+      groupId,
     });
   }
 

@@ -19,6 +19,7 @@ import { NO_NOTES_FOUND, REACT_EMOGIES } from "../replies";
 import { random } from "../common";
 import { processMessageSend } from "./wa-controllers";
 import { getUserData } from "./user-controllers";
+import { Req_type } from "../types";
 
 export const createCmdResponse = async (cmd: string) => {
   console.log(`\nEntering createCmdResponse with cmd: ${cmd}`);
@@ -66,11 +67,11 @@ export const createCmdResponse = async (cmd: string) => {
 
 export const processingRequest = async (
   cmd: string,
-  req: Request,
+  req: Request<{}, {}, Req_type>,
   res: Response,
 ) => {
   console.log(`\nEntering processingRequest with cmd: ${cmd}`);
-  const { name, chatId } = req.body;
+  const { name, chatId,groupId } = req.body;
 
   const userInfo = await getUserData({ name, chatId });
 
@@ -79,6 +80,7 @@ export const processingRequest = async (
     // owner controller
     sendMessageToBot({
       message: "OWNER CMD",
+      groupId
     });
     res.json({
       status: "success",
@@ -92,6 +94,7 @@ export const processingRequest = async (
   if (SOURCE.includes(cmd)) {
     sendMessageToBot({
       message: createSourceCmdRes(),
+      groupId
     });
     res.json({
       status: "success",
@@ -104,6 +107,7 @@ export const processingRequest = async (
     // admin controller
     sendMessageToBot({
       message: "ADMIN CMD",
+      groupId
     });
     res.json({
       status: "success",
@@ -116,6 +120,7 @@ export const processingRequest = async (
   if (commandRes === "No Notes Found") {
     sendMessageToBot({
       message: NO_NOTES_FOUND[random(NO_NOTES_FOUND.length)],
+      groupId
     });
     res.json({ status: "No notes found" });
   } else if (commandRes === "No such command") {

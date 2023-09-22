@@ -4,6 +4,7 @@ export type Req_type = {
   name: string;
   cmd: string;
   chatId: string;
+  groupId: string;
 };
 
 export type ReturnType =
