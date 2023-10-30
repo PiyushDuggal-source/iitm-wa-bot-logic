@@ -9,7 +9,8 @@ const router = e.Router();
 router.post(
   "/sendMessage",
   async (req: Request<{}, {}, Req_type>, res: Response) => {
-    const { cmd } = req.body;
+    let { cmd } = req.body;
+    cmd = cmd.trim();
     await processingRequest(cmd, req, res);
   },
 );
