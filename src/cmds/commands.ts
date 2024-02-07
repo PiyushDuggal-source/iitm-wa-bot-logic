@@ -57,6 +57,8 @@ export const ELIGIBILITY = ["eligibility", "eligible"];
 export const PLAYLIST_CMD = ["playlist", "plst"];
 export const BOT_CHECK_MESSAGES = ["check", "up", "bot", "online"];
 export const HIGHER_PREV_CMDS_2 = ["remove", "add", "kick", "ban"];
+export const OWNER = ["owner", "creator"];
+export const CONTRIBUTORS = ["contributors"];
 
 export const User_AllCommands: string[][] = [
   CALENDAR_COMMANDS,
@@ -70,3 +72,5 @@ export const User_AllCommands: string[][] = [
 ];
 
 export const ADMIN_CMDS: string[] = HIGHER_PREV_CMDS_2;
+
+export const LEADERBOARD_CMDS: string[] = ["leaderboard", "lb", "top"];

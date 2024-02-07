@@ -30,10 +30,21 @@ const notes = new Schema({
   ],
 });
 
+const contributors = new Schema({
+  name: { type: String },
+  contributedOn: [
+    {
+      type: String,
+    },
+  ],
+});
+
 export const playList = new Schema({
   name: { type: String },
-  link : { type: String },
-})
+  link: { type: String },
+});
+
 export const NotesModel = model("Notes", notes);
 export const UserModel = model("Users", users);
 export const PlaylistModel = model("Playlist", playList);
+export const ContributorModel = model("Contributors", contributors);

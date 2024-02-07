@@ -40,3 +40,10 @@ export type Playlist = {
   name: string;
   link: string;
 }[];
+
+export type QuoteData = {
+  text: string;
+  author: string;
+  category: string;
+}
+

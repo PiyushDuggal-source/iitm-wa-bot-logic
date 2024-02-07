@@ -3,6 +3,7 @@ import {
   checkCmdType,
   createAllCmdResponse,
   createBotOnlineRes,
+  createLeaderBoardCmdRes,
   createNotesRes,
   createPlaylistRes,
   createSourceCmdRes,
@@ -10,6 +11,7 @@ import {
 import {
   BOT_CHECK_MESSAGES,
   COMMANDS,
+  LEADERBOARD_CMDS,
   NOTES_CMD,
   PLAYLIST_CMD,
   SOURCE,
@@ -25,19 +27,21 @@ export const createCmdResponse = async (cmd: string) => {
   console.log(`\nEntering createCmdResponse with cmd: ${cmd}`);
 
   // check if cmd has a parameter
-  if (cmd.split(" ").length === 2) {
-    let [command, filterWord] = cmd.split(" ");
+  if (cmd.split(" ").length >= 2) {
+    let command = cmd.split(" ")[0];
     command = command.trim();
+    const filteredQuery = cmd.split(" ").slice(1)
+    console.log(filteredQuery)
 
     // check if cmd is "filter"
     switch (command) {
       // if its notes cmd
       case NOTES_CMD.filter((cmd) => cmd === command)[0]:
-        return createNotesRes(filterWord);
+        return createNotesRes(filteredQuery);
 
       // If its Playlist cmd
       case PLAYLIST_CMD.filter((cmd) => cmd === command)[0]:
-        return createPlaylistRes(filterWord);
+        return createPlaylistRes(filteredQuery);
 
       default:
         console.log("Leaving createCmdResponse\n");
@@ -84,7 +88,7 @@ export const processingRequest = async (
     });
     res.json({
       status: "success",
-      emoji: REACT_EMOGIES[random(REACT_EMOGIES.length)],
+      emoji: "🗿"
     });
     return;
   }
@@ -94,6 +98,20 @@ export const processingRequest = async (
   if (SOURCE.includes(cmd)) {
     sendMessageToBot({
       message: createSourceCmdRes(),
+      groupId
+    });
+    res.json({
+      status: "success",
+      emoji: REACT_EMOGIES[random(REACT_EMOGIES.length)],
+    });
+    return;
+  }
+
+  // LeaderBoard cmd controller
+  if (LEADERBOARD_CMDS.includes(cmd)) {
+  const leaderBoardCmdRes = await createLeaderBoardCmdRes();
+    sendMessageToBot({
+      message: leaderBoardCmdRes,
       groupId
     });
     res.json({
