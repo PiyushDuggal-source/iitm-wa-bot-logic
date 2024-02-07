@@ -7,16 +7,18 @@ import {
   SOURCE,
 } from "../cmds/commands";
 import { random } from "../common";
-import { NotesModel, PlaylistModel } from "../models/models";
+import { NotesModel, PlaylistModel, User, UserModel } from "../models/models";
 import { BOT_ONLINE_RES, GREETINGS, REACT_EMOGIES } from "../replies";
 import { Notes, Playlist } from "../types";
 
 const notesFormatter = (notes: Notes) => {
   let content = "";
   notes.forEach((note) => {
-    content += `\n\n*_NAME_* : *${note.name}*\n\n -----------*Content*------------`;
+    content += `\n\n*_NAME_* : ${note.name
+      .split("|")[0]
+      .trim()}\n\n -----------*Content*------------`;
     note.content.forEach((noteContent) => {
-      content += `\n\nName of the Notes: _${noteContent.name}_\nLink: ${noteContent.link}`;
+      content += `\n\nName: _*${noteContent.name}*_\nLink: ${noteContent.link}`;
     });
   });
   return content;
@@ -32,14 +34,22 @@ const playlistFormatter = (playlist: Playlist) => {
   return content;
 };
 
-export const createNotesRes = async (filteredWord?: string) => {
+export const createNotesRes = async (filteredWords?: string[]) => {
   console.log("\nEntering createNotesRes");
-  if (filteredWord) {
-    const regex = new RegExp(filteredWord, "i");
-    console.log(`regex: ${regex}`);
+  if (filteredWords) {
+
+    const regex = new RegExp(
+      filteredWords.map((word) => `(?=.*\\b${word}\\b)`).join(""),
+      "i",
+    );
+
     const filteredNotes: Notes = await NotesModel.find({
-      name: { $regex: regex },
+      $or: [
+        { name: { $regex: regex } }, // Match top-level 'name'
+        { "content.name": { $regex: regex } }, // Match 'name' inside 'content'
+      ],
     });
+
     if (filteredNotes.length === 0) {
       return "No Notes Found";
     }
@@ -52,11 +62,17 @@ export const createNotesRes = async (filteredWord?: string) => {
   return notesFormatter(notes);
 };
 
-export const createPlaylistRes = async (filteredWord?: string) => {
+export const createPlaylistRes = async (filteredWords?: string[]) => {
   console.log("\nEntering createPlaylistRes");
-  if (filteredWord) {
-    const regex = new RegExp(filteredWord, "i");
+  if (filteredWords) {
+
+    const regex = new RegExp(
+      filteredWords.map((word) => `\\b${word}\\b`).join(".*"),
+      "i",
+    );
+
     console.log(`regex: ${regex}`);
+
     const filteredNotes: Playlist = await PlaylistModel.find({
       name: { $regex: regex },
     });
@@ -82,7 +98,7 @@ type CmdType = "STUDENT" | "ADMIN";
  */
 export const checkCmdType = (cmd: string): CmdType => {
   console.log("\nEntering checkCmdType");
-  if (cmd.split(" ").length !== 2) {
+  if (cmd.split(" ").length < 2) {
     console.log("Leaving checkCmdType\n");
     return "STUDENT";
   }
@@ -133,13 +149,63 @@ export const createSourceCmdRes = () => {
   }\n
 Check the Source Code from here:\n
 https://github.com/PiyushDuggal-source/IITM-WA-BOT\n
-\n
-Give it a *star*, if you like it!\n
-\n
-Got any Suggestion/Issue? Report here:\n
+Give it a *star* 🌟, if you like it!\n
+Got any Suggestions/Issues? Report here:\n
 https://github.com/PiyushDuggal-source/IITM-WA-BOT/issues\n
 
 Want to contribute?😎 ping @Piyush Duggal!`;
 
+  return message;
+};
+
+const leaderBoardFormatter = (users: User[]) => {
+  console.log("\nEntering leaderBoardFormatter");
+  const sortedUsers = users.sort((a, b) => b.numberOfCmds - a.numberOfCmds);
+  let message = `*Leaderboard*
+-------------------------------------------------------------
+|                                                                          |
+|     *NUMBER*     | *NUMBER OF COMMANDS* |
+|                                                                          |
+`;
+
+  for (let i = 0; i < sortedUsers.length; i++) {
+    
+    if (i > 9) continue;
+    else if (i === 0) {
+      message += `| ${sortedUsers[i].recipitantId.split("@")[0]} | ${
+        sortedUsers[i].numberOfCmds
+      } | 🥇\n`;
+    } else if (i === 1) {
+      message += `| ${sortedUsers[i].recipitantId.split("@")[0]} | ${
+        sortedUsers[i].numberOfCmds
+      } | 🥈\n`;
+    } else if (i === 2) {
+      message += `| ${sortedUsers[i].recipitantId.split("@")[0]} | ${
+        sortedUsers[i].numberOfCmds
+      } | 🥉\n`;
+    } else {
+      message += `| ${sortedUsers[i].recipitantId.split("@")[0]} | ${
+        sortedUsers[i].numberOfCmds
+      } |\n`;
+    }
+  }
+
+  message += `|                                    |
+              --------------------------------------`;
+  console.log("Leaving leaderBoardFormatter\n");
+  return message;
+};
+
+export const createLeaderBoardCmdRes = async () => {
+  console.log("\nEntering createLeaderBoardCmdRes");
+  const LEADERBOARD_MIN_SCORE = 12;
+
+  const users = await UserModel.find({
+    numberOfCmds: { $gte: LEADERBOARD_MIN_SCORE },
+  });
+
+  const message = leaderBoardFormatter(users);
+
+  console.log("Leaving createLeaderBoardCmdRes\n");
   return message;
 };
